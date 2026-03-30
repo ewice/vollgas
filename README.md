@@ -16,42 +16,22 @@ Next up, once you say "go", it launches a *subagent-driven-development* process,
 
 There's a bunch more to it, but that's the core of the system. And because the skills trigger automatically, you don't need to do anything special. Your coding agent just has Vollgas.
 
-
-## Sponsorship
-
-If Vollgas has helped you do stuff that makes money and you are so inclined, I'd greatly appreciate it if you'd consider [sponsoring my opensource work](https://github.com/sponsors/obra).
-
-Thanks! 
-
-- Jesse
-
-
 ## Installation
 
 **Note:** Installation differs by platform. Claude Code or Cursor have built-in plugin marketplaces. Codex and OpenCode require manual setup.
-
-### Claude Code Official Marketplace
-
-Vollgas is available via the [official Claude plugin marketplace](https://claude.com/plugins/vollgas)
-
-Install the plugin from Claude marketplace:
-
-```bash
-/plugin install vollgas@claude-plugins-official
-```
 
 ### Claude Code (via Plugin Marketplace)
 
 In Claude Code, register the marketplace first:
 
 ```bash
-/plugin marketplace add obra/vollgas-marketplace
+/plugin marketplace add ewice/vollgas-marketplace
 ```
 
 Then install the plugin from this marketplace:
 
 ```bash
-/plugin install vollgas@vollgas-marketplace
+/plugin install ewice@vollgas-marketplace
 ```
 
 ### Cursor (via Plugin Marketplace)
@@ -151,8 +131,6 @@ Start a new session in your chosen platform and ask for something that should tr
 - **Complexity reduction** - Simplicity as primary goal
 - **Evidence over claims** - Verify before declaring success
 
-Read more: [Vollgas for Claude Code](https://blog.fsck.com/2025/10/09/vollgas/)
-
 ## Contributing
 
 Skills live directly in this repository. To contribute:
@@ -171,19 +149,3 @@ Skills update automatically when you update the plugin:
 ```bash
 /plugin update vollgas
 ```
-
-## License
-
-MIT License - see LICENSE file for details
-
-## Community
-
-Vollgas is built by [Jesse Vincent](https://blog.fsck.com) and the rest of the folks at [Prime Radiant](https://primeradiant.com).
-
-For community support, questions, and sharing what you're building with Vollgas, join us on [Discord](https://discord.gg/Jd8Vphy9jq).
-
-## Support
-
-- **Discord**: [Join us on Discord](https://discord.gg/Jd8Vphy9jq)
-- **Issues**: https://github.com/obra/vollgas/issues
-- **Marketplace**: https://github.com/obra/vollgas-marketplace
