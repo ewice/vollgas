@@ -40,7 +40,7 @@ digraph process {
     "Read plan, extract all tasks with full text, note context, create TodoWrite" [shape=box];
     "More tasks remain?" [shape=diamond];
     "Dispatch final code reviewer subagent for entire implementation" [shape=box];
-    "Use vollgas:finishing-a-development-branch" [shape=box style=filled fillcolor=lightgreen];
+    "Use vollgas:review-gate" [shape=box style=filled fillcolor=lightgreen];
 
     "Read plan, extract all tasks with full text, note context, create TodoWrite" -> "Dispatch implementer subagent (./implementer-prompt.md)";
     "Dispatch implementer subagent (./implementer-prompt.md)" -> "Implementer subagent asks questions?";
@@ -59,7 +59,7 @@ digraph process {
     "Mark task complete in TodoWrite" -> "More tasks remain?";
     "More tasks remain?" -> "Dispatch implementer subagent (./implementer-prompt.md)" [label="yes"];
     "More tasks remain?" -> "Dispatch final code reviewer subagent for entire implementation" [label="no"];
-    "Dispatch final code reviewer subagent for entire implementation" -> "Use vollgas:finishing-a-development-branch";
+    "Dispatch final code reviewer subagent for entire implementation" -> "Use vollgas:review-gate";
 }
 ```
 
@@ -247,7 +247,7 @@ Done!
 - **vollgas:using-git-worktrees** - REQUIRED: Set up isolated workspace before starting
 - **vollgas:writing-plans** - Creates the plan this skill executes
 - **vollgas:requesting-code-review** - Code review template for reviewer subagents
-- **vollgas:finishing-a-development-branch** - Complete development after all tasks
+- **vollgas:review-gate** - Post-implementation review before finishing
 
 **Subagents should use:**
 - **vollgas:test-driven-development** - Subagents follow TDD for each task

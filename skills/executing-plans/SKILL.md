@@ -31,12 +31,12 @@ For each task:
 3. Run verifications as specified
 4. Mark as completed
 
-### Step 3: Complete Development
+### Step 3: Review Gate
 
 After all tasks complete and verified:
-- Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use vollgas:finishing-a-development-branch
-- Follow that skill to verify tests, present options, execute choice
+- Announce: "I'm using the review-gate skill to run the post-implementation review."
+- **REQUIRED SUB-SKILL:** Use vollgas:review-gate
+- Follow that skill to run reviewers, validate findings, and hand off to finishing
 
 ## When to Stop and Ask for Help
 
@@ -69,4 +69,4 @@ After all tasks complete and verified:
 **Required workflow skills:**
 - **vollgas:using-git-worktrees** - REQUIRED: Set up isolated workspace before starting
 - **vollgas:writing-plans** - Creates the plan this skill executes
-- **vollgas:finishing-a-development-branch** - Complete development after all tasks
+- **vollgas:review-gate** - Post-implementation review before finishing
