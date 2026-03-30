@@ -139,6 +139,17 @@ git commit -m "feat: add specific feature"
 ```
 ````
 
+## Task Dependencies
+
+Tasks may depend on each other. When they do:
+
+- Mark dependencies explicitly: `**Depends on:** Task N`
+- Order dependent tasks after their dependencies in the plan
+- Note what the dependency produces: "Task 2 creates `SelectionEngine` used by Task 3"
+- The controller (subagent-driven-development) executes tasks sequentially in plan order — dependent tasks will always have their prerequisites completed first
+- Tasks without `Depends on:` markers are candidates for parallel dispatch (see vollgas:dispatching-parallel-agents)
+- Each task is still dispatched to a fresh subagent in isolation, so include enough context about what the dependency produced for the implementer to use it without reading the full plan
+
 ## No Placeholders
 
 Every step must contain the actual content an engineer needs. These are **plan failures** — never write them:

@@ -19,7 +19,7 @@
 
 ## Fallback Reviewer Heuristics
 
-When the repo has no dispatch table, select reviewers by change type:
+When the repo has no `vollgas/refs/reviewer-dispatch.md` or `vollgas/reviewers/` directory, select reviewers by change type:
 
 | Change type | Reviewers |
 |---|---|

@@ -88,6 +88,21 @@ Then: Cleanup worktree (Step 5)
 
 #### Option 2: Push and Create PR
 
+**Pre-push verification (MANDATORY):**
+
+```bash
+# Run full test suite
+<test command>
+
+# Run linter
+<lint command>
+
+# Run formatter
+<format command, e.g. prettier --write .>
+```
+
+**If any fail:** Fix issues before pushing. Do not push broken code.
+
 ```bash
 # Push branch
 git push -u origin <feature-branch>
@@ -102,6 +117,8 @@ gh pr create --title "<title>" --body "$(cat <<'EOF'
 EOF
 )"
 ```
+
+**After PR creation:** Note that CI checks should be monitored. The PR is not truly complete until CI passes.
 
 Then: Cleanup worktree (Step 5)
 
@@ -135,7 +152,7 @@ Then: Cleanup worktree (Step 5)
 
 ### Step 5: Cleanup Worktree
 
-**For Options 1, 2, 4:**
+**For Options 1 and 4:**
 
 Check if in worktree:
 ```bash
@@ -147,7 +164,7 @@ If yes:
 git worktree remove <worktree-path>
 ```
 
-**For Option 3:** Keep worktree.
+**For Options 2 and 3:** Keep worktree. Option 2 keeps it so you can fix locally if CI fails.
 
 ## Quick Reference
 

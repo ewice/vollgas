@@ -65,18 +65,17 @@ digraph process {
 
 ## Model Selection
 
-Use the least powerful model that can handle each role to conserve cost and increase speed.
+Explicit model mapping per role:
 
-**Mechanical implementation tasks** (isolated functions, clear specs, 1-2 files): use a fast, cheap model. Most implementation tasks are mechanical when the plan is well-specified.
+| Role | Model | Rationale |
+|------|-------|-----------|
+| **Implementation tasks** | Sonnet | Well-specified plans make implementation mechanical enough for Sonnet |
+| **Fix tasks** (from review findings) | Sonnet | Fixes are well-scoped with clear contracts |
+| **Spec compliance review** | Opus | Requires cross-referencing spec against code, judgment on completeness |
+| **Code quality review** | Opus | Requires architectural reasoning and rule application |
+| **Findings validation** | Opus | Requires independent judgment on evidence quality |
 
-**Integration and judgment tasks** (multi-file coordination, pattern matching, debugging): use a standard model.
-
-**Architecture, design, and review tasks**: use the most capable available model.
-
-**Task complexity signals:**
-- Touches 1-2 files with a complete spec → cheap model
-- Touches multiple files with integration concerns → standard model
-- Requires design judgment or broad codebase understanding → most capable model
+Use Sonnet for all implementation and fix work. Use Opus for all review and validation work. This is a hard rule — do not downgrade reviewers to save cost.
 
 ## Handling Implementer Status
 
