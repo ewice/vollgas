@@ -31,7 +31,7 @@ In Claude Code, register the marketplace first:
 Then install the plugin from this marketplace:
 
 ```bash
-/plugin install vollgas@vollgas-marketplace
+/plugin install vollgas@vollgas
 ```
 
 ### Cursor (via Plugin Marketplace)
