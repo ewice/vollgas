@@ -67,7 +67,7 @@ Each reviewer file in `vollgas/reviewers/` must include the `reviewer-output-con
 
 11. Dispatch `smallest-diff` sub-agent (Sonnet) to verify fixes didn't introduce noise. Template: `./smallest-diff-prompt.md`.
 12. Dispatch `code-simplifier` sub-agent (Opus) as final polish. Template: `./code-simplifier-prompt.md`. Verify tests pass after refinements.
-13. Record any post-review change in the repo's feedback queue immediately.
+13. If any validated findings were produced during the review rounds, write them to `vollgas/review-findings/YYYY-MM-DD-<branch-name>.md` using the format below. One file per branch, written once. If zero validated findings were produced, skip this step.
 
 ## Sub-Agent Templates
 
@@ -76,6 +76,37 @@ Each reviewer file in `vollgas/reviewers/` must include the `reviewer-output-con
 | `./smallest-diff-prompt.md` | Audit diff for dead code, speculative additions, noise | Sonnet |
 | `./code-simplifier-prompt.md` | Final polish — refine clarity, naming, consistency | Opus |
 | `./findings-validator-prompt.md` | Classify reviewer findings as valid/false positive | Opus |
+
+## Findings File Format
+
+When the review rounds produce validated findings, persist them for retrospective analysis:
+
+**Path:** `vollgas/review-findings/YYYY-MM-DD-<branch-name>.md`
+
+**Format:**
+
+```markdown
+# Review Findings — <branch-name>
+
+Date: YYYY-MM-DD
+Branch: <branch-name>
+Rounds: <number of review rounds>
+
+## Findings
+
+### Finding 1
+- **Reviewer:** <reviewer-name>
+- **Description:** <what was flagged>
+- **Resolution:** fixed | escalated
+- **Round:** <which round flagged it>
+
+### Finding 2
+...
+```
+
+Only include validated findings (VALID classification from findings-validator). Omit FALSE_POSITIVE and ALREADY_HANDLED findings. Capture the final resolution status after all review rounds complete (steps 3–10), not after post-review polish (steps 11–12).
+
+If a findings file already exists for this branch, overwrite it — only one findings snapshot per branch is kept.
 
 ## Contracts
 
@@ -113,7 +144,7 @@ Each reviewer file in `vollgas/reviewers/` must include the `reviewer-output-con
 - Run smallest-diff before reviewers (removes code that shouldn't exist)
 - Run smallest-diff + code-simplifier after all fixes (final polish)
 - Validate every finding before acting
-- Record post-review changes in the feedback queue
+- Persist validated findings to `vollgas/review-findings/` after all rounds complete
 
 ## Integration
 

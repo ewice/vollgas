@@ -214,3 +214,6 @@ git worktree remove <worktree-path>
 
 **Pairs with:**
 - **using-git-worktrees** - Cleans up worktree created by that skill
+
+**Hands off to (optional):**
+- **vollgas:retro** — After completing the branch, the user can run `vollgas:retro` to reflect on what the review-gate caught and codify recurring patterns
