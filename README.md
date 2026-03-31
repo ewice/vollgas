@@ -25,13 +25,13 @@ There's a bunch more to it, but that's the core of the system. And because the s
 In Claude Code, register the marketplace first:
 
 ```bash
-/plugin marketplace add ewice/vollgas-marketplace
+/plugin marketplace add ewice/vollgas
 ```
 
 Then install the plugin from this marketplace:
 
 ```bash
-/plugin install ewice@vollgas-marketplace
+/plugin install vollgas@vollgas-marketplace
 ```
 
 ### Cursor (via Plugin Marketplace)
@@ -49,7 +49,7 @@ or search for "vollgas" in the plugin marketplace.
 Tell Codex:
 
 ```
-Fetch and follow instructions from https://raw.githubusercontent.com/obra/vollgas/refs/heads/main/.codex/INSTALL.md
+Fetch and follow instructions from https://raw.githubusercontent.com/ewice/vollgas/refs/heads/main/.codex/INSTALL.md
 ```
 
 **Detailed docs:** [docs/README.codex.md](docs/README.codex.md)
@@ -59,7 +59,7 @@ Fetch and follow instructions from https://raw.githubusercontent.com/obra/vollga
 Tell OpenCode:
 
 ```
-Fetch and follow instructions from https://raw.githubusercontent.com/obra/vollgas/refs/heads/main/.opencode/INSTALL.md
+Fetch and follow instructions from https://raw.githubusercontent.com/ewice/vollgas/refs/heads/main/.opencode/INSTALL.md
 ```
 
 **Detailed docs:** [docs/README.opencode.md](docs/README.opencode.md)
@@ -67,7 +67,7 @@ Fetch and follow instructions from https://raw.githubusercontent.com/obra/vollga
 ### Gemini CLI
 
 ```bash
-gemini extensions install https://github.com/obra/vollgas
+gemini extensions install https://github.com/ewice/vollgas
 ```
 
 To update:
