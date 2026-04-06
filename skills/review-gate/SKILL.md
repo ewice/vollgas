@@ -58,7 +58,7 @@ Each reviewer file in `vollgas/reviewers/` must include the `reviewer-output-con
 4. Collect all findings into a single findings document (see `review-lifecycle.md` for format).
 5. Dispatch findings-validator sub-agent (Opus). See `findings-validator-prompt.md`. Fresh context — did not participate in the review. Classifies each finding as VALID, FALSE_POSITIVE, or ALREADY_HANDLED. **Fallback:** Validate sequentially in the same session.
 6. If no valid findings remain: **PASS** — exit the round.
-7. Write validated findings as fix task contracts (scope, invariant, validation command — not patches).
+7. Write validated findings as fix task contracts (scope, invariant, validation command — not patches). If a fix contradicts the original plan (e.g., the plan defined a field that a reviewer correctly identifies as an anti-pattern), append a deviation entry to the plan file's `## Deviations` section (create the section if it doesn't exist). Format: `### Task N — {title}\n- **Deviated from:** {what the plan said}\n- **Actual approach:** {what was implemented instead}\n- **Why:** {reviewer finding that motivated the change}`. This keeps the plan accurate for future readers.
 8. Dispatch implementer sub-agents (Sonnet) for fix tasks. Same execution path as plan tasks. **Fallback:** Fix sequentially in the same session.
 9. Re-run only the reviewers that flagged findings, scoped to changed files.
 10. If valid findings remain after round 2: **escalate to user** with the findings document.
@@ -67,7 +67,8 @@ Each reviewer file in `vollgas/reviewers/` must include the `reviewer-output-con
 
 11. Dispatch `smallest-diff` sub-agent (Sonnet) to verify fixes didn't introduce noise. Template: `./smallest-diff-prompt.md`.
 12. Dispatch `code-simplifier` sub-agent (Opus) as final polish. Template: `./code-simplifier-prompt.md`. Verify tests pass after refinements.
-13. If any validated findings were produced during the review rounds, write them to `vollgas/review-findings/YYYY-MM-DD-<branch-name>.md` using the format below. One file per branch, written once. If zero validated findings were produced, skip this step.
+13. **Post-reviewer feedback-queue check.** Steps 11–12 run after all reviewers have passed. Any changes they produce are post-reviewer fixes and MUST be recorded in `vollgas/.feedback-queue.md` per the project's Post-Reviewer Protocol. After each sub-agent completes, diff its changes (`git diff HEAD~1`) and write a feedback-queue entry for each meaningful change. Skip this step only if the sub-agent made zero changes.
+14. If any validated findings were produced during the review rounds, write them to `vollgas/review-findings/YYYY-MM-DD-<branch-name>.md` using the format below. One file per branch, written once. If zero validated findings were produced, skip this step.
 
 ## Sub-Agent Templates
 
@@ -143,6 +144,8 @@ If a findings file already exists for this branch, overwrite it — only one fin
 **Always:**
 - Run smallest-diff before reviewers (removes code that shouldn't exist)
 - Run smallest-diff + code-simplifier after all fixes (final polish)
+- Write feedback-queue entries for any post-reviewer changes (step 13)
+- Append plan deviations when fixes contradict the original plan (step 7)
 - Validate every finding before acting
 - Persist validated findings to `vollgas/review-findings/` after all rounds complete
 

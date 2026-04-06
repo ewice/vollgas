@@ -16,6 +16,21 @@ Execute plan by dispatching fresh subagent per task, with two-stage review after
 Use this skill when you have an implementation plan with independent tasks. This is
 the default execution method.
 
+## Prerequisite: Worktree Gate
+
+**Before dispatching any task**, verify you are NOT on main/master:
+
+```bash
+branch=$(git branch --show-current)
+if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
+  echo "ERROR: On $branch — must use a feature branch or worktree"
+fi
+```
+
+If on main/master: invoke `vollgas:using-git-worktrees` to create an isolated workspace.
+Do NOT proceed with implementation on the default branch — this removes the safety net
+for discarding work.
+
 ## The Process
 
 ```dot
@@ -177,6 +192,26 @@ Final reviewer: All requirements met, ready to merge
 Done!
 ```
 
+## Session Boundary
+
+After all tasks are complete and the final code reviewer has run, **recommend a fresh
+session before review-gate**. The orchestrator has accumulated context from every task
+dispatch, every review loop, and every result — review-gate needs its own context budget
+for 7+ reviewer dispatches, findings validation, and fix loops.
+
+Output this handoff message:
+
+```
+All [N] tasks implemented and committed on branch [branch-name].
+Recommend starting a fresh session for review-gate — the review pipeline
+needs context for [M] reviewer dispatches, findings validation, and fix loops.
+
+To continue: invoke vollgas:review-gate in a new session.
+```
+
+If the user explicitly asks to continue in the same session, proceed — but note that
+context exhaustion during review-gate may force compaction and lose review state.
+
 ## Advantages
 
 **vs. Manual execution:**
@@ -212,7 +247,7 @@ Done!
 ## Red Flags
 
 **Never:**
-- Start implementation on main/master branch without explicit user consent
+- Start implementation on main/master — run the Worktree Gate check first; only proceed on main with explicit user consent
 - Skip reviews (spec compliance OR code quality)
 - Proceed with unfixed issues
 - Dispatch multiple implementation subagents in parallel (conflicts)

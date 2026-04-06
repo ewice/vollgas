@@ -177,6 +177,10 @@ After writing the complete plan, look at the spec with fresh eyes and check the 
 
 **3. Type consistency:** Do the types, method signatures, and property names you used in later tasks match what you defined in earlier tasks? A function called `clearLayers()` in Task 3 but `clearFullLayers()` in Task 7 is a bug.
 
+**4. Test completeness:** If the project has a test-patterns reference (e.g., `vollgas/refs/test-patterns.md`), cross-reference its required test categories against the plan's test code. Each applicable category must have at least one test in the plan. Common gaps: event ordering tests (when the spec defines ordering), form submission tests (when form-associated), structural misuse tests (when compound structure). Missing test categories are plan defects that waste a reviewer round to catch.
+
+**5. Shared abstractions cross-check:** Verify the plan's Shared Abstractions Audit section covers context patterns and cross-component utilities, not just controllers and engines. A plan that defines a `disabled: boolean` field on a component context when the project already has a shared `disabledContext` is a plan defect.
+
 If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
 
 ## Execution Handoff
